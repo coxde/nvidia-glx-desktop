@@ -1,4 +1,5 @@
 FROM ghcr.io/selkies-project/nvidia-glx-desktop:latest
+USER root
 
 # Use Bash as the default shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -33,5 +34,10 @@ RUN  apt-get install -y \
         ncdu \
         neofetch \
         duf
+
+USER user
+ENV SHELL /bin/bash
+ENV USER user
+WORKDIR /home/user
 
 ENTRYPOINT ["/usr/bin/supervisord"]
